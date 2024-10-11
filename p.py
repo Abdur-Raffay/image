@@ -66,5 +66,5 @@ def main():
                     mime="image/jpeg"
                 )
 
-if __name__ == "__main__":
-    main()
+if name == “main”:
+main()

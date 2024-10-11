@@ -39,29 +39,32 @@ def convert_and_prepare_images(file_paths):
 
     return converted_images
 
-# Streamlit app
-st.title("Image Dropper and Converter")
+def main():
+    st.title("Image Dropper and Converter")
 
-# File uploader for multiple image files
-uploaded_files = st.file_uploader("Drag and drop images here or click to upload.", type=["jpg", "png"], accept_multiple_files=True)
+    # File uploader for multiple image files
+    uploaded_files = st.file_uploader("Drag and drop images here or click to upload.", type=["jpg", "png"], accept_multiple_files=True)
 
-if uploaded_files:
-    st.write(f"{len(uploaded_files)} image(s) uploaded.")
+    if uploaded_files:
+        st.write(f"{len(uploaded_files)} image(s) uploaded.")
 
-    # Display uploaded images
-    for uploaded_file in uploaded_files:
-        img = Image.open(uploaded_file)
-        st.image(img, caption=f"Original Image: {uploaded_file.name}", use_column_width=True)
+        # Display uploaded images
+        for uploaded_file in uploaded_files:
+            img = Image.open(uploaded_file)
+            st.image(img, caption=f"Original Image: {uploaded_file.name}", use_column_width=True)
 
-    # Button to convert and download images
-    if st.button("Convert and Prepare for Download"):
-        converted_images = convert_and_prepare_images(uploaded_files)
+        # Button to convert and download images
+        if st.button("Convert and Prepare for Download"):
+            converted_images = convert_and_prepare_images(uploaded_files)
 
-        # Display download links for each converted image
-        for img_bytes, filename in converted_images:
-            st.download_button(
-                label=f"Download {filename}",
-                data=img_bytes,
-                file_name=filename,
-                mime="image/jpeg"
-            )
+            # Display download links for each converted image
+            for img_bytes, filename in converted_images:
+                st.download_button(
+                    label=f"Download {filename}",
+                    data=img_bytes,
+                    file_name=filename,
+                    mime="image/jpeg"
+                )
+
+if __name__ == "__main__":
+    main()
